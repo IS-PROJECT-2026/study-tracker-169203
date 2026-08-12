@@ -11,6 +11,9 @@ This document describes the IndexedDB schema used by the Study Tracker applicati
 
 The database consists of three object stores: `units`, `subtopics`, and `sessions`. Each unit can have multiple subtopics, and each subtopic can have multiple study sessions logged against it.
 
+```
+units (1) ──< subtopics (many) ──< sessions (many)
+```
 
 Relationships are maintained manually via foreign-key-style fields (`unitId`, `subtopicId`), since IndexedDB does not enforce referential integrity natively.
 
