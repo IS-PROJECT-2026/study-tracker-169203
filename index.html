@@ -1,1 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Study Tracker</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
 
+  <header class="app-header">
+    <h1>Study Tracker</h1>
+  </header>
+
+  <main class="container">
+
+    <section class="unit-form-section">
+      <h2>Add a Unit</h2>
+      <form id="unit-form">
+        <input type="hidden" id="unit-id" />
+
+        <label for="unit-name">Unit Name</label>
+        <input type="text" id="unit-name" placeholder="e.g. ICS 4111 - Embedded Systems" required />
+
+        <label for="unit-exam-date">Exam Date</label>
+        <input type="date" id="unit-exam-date" required />
+
+        <label for="unit-priority">Priority</label>
+        <select id="unit-priority">
+          <option value="high">High</option>
+          <option value="medium" selected>Medium</option>
+          <option value="low">Low</option>
+        </select>
+
+        <button type="submit" id="unit-submit-btn">Add Unit</button>
+        <button type="button" id="unit-cancel-btn" style="display: none;">Cancel Edit</button>
+      </form>
+    </section>
+
+  
+    <section class="unit-list-section">
+      <h2>Your Units</h2>
+      <div id="unit-list" class="unit-list">
+        <p class="empty-state" id="empty-state">No units yet. Add one above to get started.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="js/db.js"></script>
+  <script src="js/units.js"></script>
+</body>
+</html>
