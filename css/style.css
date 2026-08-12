@@ -1,0 +1,60 @@
+
+body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.app-header {
+  padding: 1rem;
+  border-bottom: 1px solid #ccc;
+}
+
+form label {
+  display: block;
+  margin-top: 0.5rem;
+}
+
+form input,
+form select {
+  width: 100%;
+  padding: 0.4rem;
+  margin-top: 0.25rem;
+  box-sizing: border-box;
+}
+
+form button {
+  margin-top: 1rem;
+  margin-right: 0.5rem;
+}
+
+.unit-list {
+  margin-top: 1rem;
+}
+
+.unit-card {
+  border: 1px solid #ccc;
+  padding: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.unit-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.priority-badge {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+.empty-state {
+  color: #666;
+}
