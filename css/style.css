@@ -1,3 +1,6 @@
+/* style.css
+   Minimal, unstyled-on-purpose baseline for Issue #4.
+   Real styling happens in Issue #5 — this just makes things usable/legible. */
 
 body {
   font-family: sans-serif;
@@ -57,4 +60,32 @@ form button {
 
 .empty-state {
   color: #666;
+}
+
+.session-card {
+  border: 1px solid #ccc;
+  padding: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.session-card-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.session-thumbnail {
+  max-width: 150px;
+  max-height: 150px;
+  display: block;
+  margin-top: 0.5rem;
+}
+
+.error-text {
+  color: #b00020;
+  font-size: 0.85rem;
+}
+
+.existing-attachment {
+  font-size: 0.85rem;
+  color: #555;
 }
