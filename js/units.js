@@ -1,3 +1,7 @@
+// units.js
+// Handles all Unit CRUD interactions between the form/list UI and the
+// IndexedDB wrapper functions defined in db.js.
+
 const unitForm = document.getElementById("unit-form");
 const unitIdField = document.getElementById("unit-id");
 const unitNameField = document.getElementById("unit-name");
@@ -9,7 +13,6 @@ const unitListEl = document.getElementById("unit-list");
 const emptyStateEl = document.getElementById("empty-state");
 
 document.addEventListener("DOMContentLoaded", renderUnits);
-
 
 unitForm.addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -36,7 +39,6 @@ unitForm.addEventListener("submit", async (event) => {
   await renderUnits();
 });
 
-
 unitCancelBtn.addEventListener("click", resetForm);
 
 function resetForm() {
@@ -45,7 +47,6 @@ function resetForm() {
   unitSubmitBtn.textContent = "Add Unit";
   unitCancelBtn.style.display = "none";
 }
-
 
 async function renderUnits() {
   const db = await openDB();
@@ -67,7 +68,6 @@ async function renderUnits() {
     });
   };
 }
-
 
 function createUnitCard(unit) {
   const card = document.createElement("div");
@@ -91,7 +91,6 @@ function createUnitCard(unit) {
   return card;
 }
 
-
 function startEditUnit(unit) {
   unitIdField.value = unit.id;
   unitNameField.value = unit.name;
@@ -103,7 +102,6 @@ function startEditUnit(unit) {
 
   unitForm.scrollIntoView({ behavior: "smooth" });
 }
-
 
 async function confirmDeleteUnit(unitId) {
   const confirmed = confirm(
