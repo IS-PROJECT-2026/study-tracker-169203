@@ -14,6 +14,7 @@
 
   <main class="container">
 
+    <!-- ===== Add Unit Form ===== -->
     <section class="unit-form-section">
       <h2>Add a Unit</h2>
       <form id="unit-form">
@@ -37,7 +38,7 @@
       </form>
     </section>
 
-  
+    <!-- ===== Units List ===== -->
     <section class="unit-list-section">
       <h2>Your Units</h2>
       <div id="unit-list" class="unit-list">
@@ -45,9 +46,78 @@
       </div>
     </section>
 
+    <!-- ===== Subtopics Section ===== -->
+    <section class="subtopic-section">
+      <h2>Subtopics</h2>
+
+      <label for="subtopic-unit-select">Select a Unit</label>
+      <select id="subtopic-unit-select">
+        <option value="">-- Choose a unit --</option>
+      </select>
+
+      <form id="subtopic-form" style="display: none;">
+        <input type="hidden" id="subtopic-id" />
+        <input type="hidden" id="subtopic-unit-id" />
+
+        <label for="subtopic-name">Subtopic Name</label>
+        <input type="text" id="subtopic-name" placeholder="e.g. MQTT" required />
+
+        <label for="subtopic-status">Status</label>
+        <select id="subtopic-status">
+          <option value="not-started" selected>Not Started</option>
+          <option value="in-progress">In Progress</option>
+          <option value="done">Done</option>
+        </select>
+
+        <label for="subtopic-target-date">Target Date (optional)</label>
+        <input type="date" id="subtopic-target-date" />
+
+        <button type="submit" id="subtopic-submit-btn">Add Subtopic</button>
+        <button type="button" id="subtopic-cancel-btn" style="display: none;">Cancel Edit</button>
+      </form>
+
+      <div id="subtopic-list" class="subtopic-list"></div>
+    </section>
+
+    <!-- ===== Sessions Section ===== -->
+    <section class="session-section">
+      <h2>Study Sessions</h2>
+
+      <label for="session-subtopic-select">Select a Subtopic</label>
+      <select id="session-subtopic-select">
+        <option value="">-- Choose a subtopic --</option>
+      </select>
+
+      <form id="session-form" style="display: none;" enctype="multipart/form-data">
+        <input type="hidden" id="session-id" />
+        <input type="hidden" id="session-subtopic-id" />
+
+        <label for="session-date">Date</label>
+        <input type="date" id="session-date" required />
+
+        <label for="session-duration">Duration (minutes)</label>
+        <input type="number" id="session-duration" min="1" required />
+
+        <label for="session-summary">Summary</label>
+        <textarea id="session-summary" rows="3" placeholder="What did you study?"></textarea>
+
+        <label for="session-attachment">Attachment (image or PDF, optional)</label>
+        <input type="file" id="session-attachment" accept="image/*,application/pdf" />
+        <p id="session-attachment-error" class="error-text" style="display: none;"></p>
+        <p id="session-existing-attachment" class="existing-attachment"></p>
+
+        <button type="submit" id="session-submit-btn">Add Session</button>
+        <button type="button" id="session-cancel-btn" style="display: none;">Cancel Edit</button>
+      </form>
+
+      <div id="session-list" class="session-list"></div>
+    </section>
+
   </main>
 
   <script src="js/db.js"></script>
   <script src="js/units.js"></script>
+  <script src="js/subtopics.js"></script>
+  <script src="js/sessions.js"></script>
 </body>
 </html>
