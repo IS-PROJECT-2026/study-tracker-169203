@@ -14,7 +14,31 @@
 
   <main class="container">
 
-    <!-- ===== Add Unit Form ===== -->
+    <section class="dashboard-section">
+      <h2>Dashboard</h2>
+
+      <div class="dashboard-summary">
+        <div class="stat-card">
+          <span class="stat-value" id="stat-total-units">0</span>
+          <span class="stat-label">Units</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value" id="stat-total-subtopics-done">0/0</span>
+          <span class="stat-label">Subtopics Done</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value" id="stat-total-sessions">0</span>
+          <span class="stat-label">Sessions Logged</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value" id="stat-total-time">0</span>
+          <span class="stat-label">Minutes Studied</span>
+        </div>
+      </div>
+
+      <div id="dashboard-per-unit" class="dashboard-per-unit"></div>
+    </section>
+
     <section class="unit-form-section">
       <h2>Add a Unit</h2>
       <form id="unit-form">
@@ -38,21 +62,34 @@
       </form>
     </section>
 
-    <!-- ===== Units List ===== -->
     <section class="unit-list-section">
       <h2>Your Units</h2>
+
+      <label for="unit-sort">Sort by</label>
+      <select id="unit-sort">
+        <option value="examDate">Exam Date (soonest first)</option>
+        <option value="priority">Priority (high first)</option>
+      </select>
+
       <div id="unit-list" class="unit-list">
         <p class="empty-state" id="empty-state">No units yet. Add one above to get started.</p>
       </div>
     </section>
 
-    <!-- ===== Subtopics Section ===== -->
     <section class="subtopic-section">
       <h2>Subtopics</h2>
 
       <label for="subtopic-unit-select">Select a Unit</label>
       <select id="subtopic-unit-select">
         <option value="">-- Choose a unit --</option>
+      </select>
+
+      <label for="subtopic-status-filter">Filter by status</label>
+      <select id="subtopic-status-filter">
+        <option value="all">All</option>
+        <option value="not-started">Not Started</option>
+        <option value="in-progress">In Progress</option>
+        <option value="done">Done</option>
       </select>
 
       <form id="subtopic-form" style="display: none;">
@@ -79,7 +116,6 @@
       <div id="subtopic-list" class="subtopic-list"></div>
     </section>
 
-    <!-- ===== Sessions Section ===== -->
     <section class="session-section">
       <h2>Study Sessions</h2>
 
@@ -116,6 +152,7 @@
   </main>
 
   <script src="js/db.js"></script>
+  <script src="js/dashboard.js"></script>
   <script src="js/units.js"></script>
   <script src="js/subtopics.js"></script>
   <script src="js/sessions.js"></script>

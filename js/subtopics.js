@@ -1,9 +1,5 @@
-// subtopics.js
-// Handles Subtopic CRUD, scoped to whichever unit is selected in the
-// dropdown. Uses getAllByIndex("subtopics", "unitId", ...) and
-// deleteSubtopicCascade to remove a subtopic along with its sessions.
-
 const subtopicUnitSelect = document.getElementById("subtopic-unit-select");
+const subtopicStatusFilter = document.getElementById("subtopic-status-filter");
 const subtopicForm = document.getElementById("subtopic-form");
 const subtopicIdField = document.getElementById("subtopic-id");
 const subtopicUnitIdField = document.getElementById("subtopic-unit-id");
@@ -31,6 +27,11 @@ subtopicUnitSelect.addEventListener("change", async () => {
   await renderSubtopics(unitId);
 });
 
+subtopicStatusFilter.addEventListener("change", async () => {
+  const unitId = subtopicUnitSelect.value;
+  if (unitId) await renderSubtopics(unitId);
+});
+
 subtopicForm.addEventListener("submit", async (event) => {
   event.preventDefault();
 
@@ -56,6 +57,7 @@ subtopicForm.addEventListener("submit", async (event) => {
 
   resetSubtopicForm(unitId);
   await renderSubtopics(unitId);
+  if (window.refreshDashboard) await window.refreshDashboard();
 });
 
 subtopicCancelBtn.addEventListener("click", () => {
@@ -88,11 +90,17 @@ async function populateUnitDropdown() {
 }
 
 async function renderSubtopics(unitId) {
-  const subtopics = await getAllByIndex("subtopics", "unitId", Number(unitId));
+  let subtopics = await getAllByIndex("subtopics", "unitId", Number(unitId));
+
+  const filterValue = subtopicStatusFilter.value;
+  if (filterValue && filterValue !== "all") {
+    subtopics = subtopics.filter((s) => s.status === filterValue);
+  }
+
   subtopicListEl.innerHTML = "";
 
   if (subtopics.length === 0) {
-    subtopicListEl.innerHTML = `<p class="empty-state">No subtopics yet for this unit.</p>`;
+    subtopicListEl.innerHTML = `<p class="empty-state">No subtopics match this view.</p>`;
     return;
   }
 
@@ -144,4 +152,5 @@ async function confirmDeleteSubtopic(subtopic) {
 
   await deleteSubtopicCascade(subtopic.id);
   await renderSubtopics(subtopic.unitId);
+  if (window.refreshDashboard) await window.refreshDashboard();
 }
