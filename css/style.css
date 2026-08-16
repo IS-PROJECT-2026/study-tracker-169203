@@ -1,76 +1,212 @@
-/* style.css
-   Minimal, unstyled-on-purpose baseline for Issue #4.
-   Real styling happens in Issue #5 — this just makes things usable/legible. */
+:root {
+  --color-bg: #f7f7fb;
+  --color-surface: #ffffff;
+  --color-border: #e0e0e6;
+  --color-text: #23232b;
+  --color-muted: #6b6b76;
+  --color-primary: #4a5df9;
+  --color-danger: #d1435b;
+  --color-high: #d1435b;
+  --color-medium: #e0a72c;
+  --color-low: #3fa66a;
+  --radius: 8px;
+}
+
+* {
+  box-sizing: border-box;
+}
 
 body {
-  font-family: sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   margin: 0;
   padding: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
 }
 
 .container {
-  max-width: 600px;
+  max-width: 700px;
   margin: 0 auto;
-  padding: 1rem;
+  padding: 1rem 1rem 3rem;
 }
 
 .app-header {
+  padding: 1.25rem 1rem;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+section {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
   padding: 1rem;
-  border-bottom: 1px solid #ccc;
+  margin-top: 1rem;
+}
+
+section h2 {
+  margin-top: 0;
+  font-size: 1.1rem;
 }
 
 form label {
   display: block;
-  margin-top: 0.5rem;
+  margin-top: 0.6rem;
+  font-size: 0.85rem;
+  color: var(--color-muted);
 }
 
 form input,
-form select {
+form select,
+form textarea {
   width: 100%;
-  padding: 0.4rem;
+  padding: 0.5rem;
   margin-top: 0.25rem;
-  box-sizing: border-box;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  font-size: 0.95rem;
 }
 
 form button {
   margin-top: 1rem;
   margin-right: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  background: var(--color-primary);
+  color: white;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+form button[type="button"] {
+  background: transparent;
+  color: var(--color-muted);
+  border: 1px solid var(--color-border);
+}
+
+.dashboard-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.stat-card {
+  background: var(--color-bg);
+  border-radius: var(--radius);
+  padding: 0.75rem;
+  text-align: center;
+}
+
+.stat-value {
+  display: block;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: var(--color-muted);
+}
+
+.unit-progress-row {
+  margin-bottom: 0.6rem;
+}
+
+.unit-progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  margin-bottom: 0.2rem;
+}
+
+.progress-bar-track {
+  height: 8px;
+  background: var(--color-bg);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: var(--color-primary);
 }
 
 .unit-list {
   margin-top: 1rem;
 }
 
-.unit-card {
-  border: 1px solid #ccc;
+.unit-card,
+.subtopic-card,
+.session-card {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
   padding: 0.75rem;
   margin-bottom: 0.75rem;
 }
 
-.unit-card-header {
+.unit-card-header,
+.subtopic-card-header,
+.session-card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.priority-badge {
-  font-size: 0.8rem;
+.priority-badge,
+.status-badge {
+  font-size: 0.7rem;
   text-transform: uppercase;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  color: white;
 }
 
-.empty-state {
-  color: #666;
+.unit-card.priority-high .priority-badge { background: var(--color-high); }
+.unit-card.priority-medium .priority-badge { background: var(--color-medium); }
+.unit-card.priority-low .priority-badge { background: var(--color-low); }
+
+.subtopic-card.status-not-started .status-badge { background: var(--color-muted); }
+.subtopic-card.status-in-progress .status-badge { background: var(--color-medium); }
+.subtopic-card.status-done .status-badge { background: var(--color-low); }
+
+.unit-exam-date,
+.subtopic-target-date {
+  font-size: 0.85rem;
+  color: var(--color-muted);
 }
 
-.session-card {
-  border: 1px solid #ccc;
-  padding: 0.75rem;
-  margin-bottom: 0.75rem;
-}
-
-.session-card-header {
+.unit-card-actions,
+.subtopic-card-actions,
+.session-card-actions {
+  margin-top: 0.5rem;
   display: flex;
-  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.unit-card-actions button,
+.subtopic-card-actions button,
+.session-card-actions button {
+  padding: 0.3rem 0.7rem;
+  border-radius: 6px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.delete-btn {
+  color: var(--color-danger);
+}
+
+.session-summary {
+  font-size: 0.9rem;
 }
 
 .session-thumbnail {
@@ -78,14 +214,36 @@ form button {
   max-height: 150px;
   display: block;
   margin-top: 0.5rem;
+  border-radius: 6px;
 }
 
 .error-text {
-  color: #b00020;
+  color: var(--color-danger);
   font-size: 0.85rem;
 }
 
 .existing-attachment {
   font-size: 0.85rem;
-  color: #555;
+  color: var(--color-muted);
+}
+
+.empty-state {
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0.75rem 0.75rem 2rem;
+  }
+
+  .dashboard-summary {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .unit-card-actions button,
+  .subtopic-card-actions button,
+  .session-card-actions button {
+    flex: 1;
+  }
 }
