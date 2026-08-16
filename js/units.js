@@ -1,7 +1,3 @@
-// units.js
-// Handles all Unit CRUD interactions between the form/list UI and the
-// IndexedDB wrapper functions defined in db.js.
-
 const unitForm = document.getElementById("unit-form");
 const unitIdField = document.getElementById("unit-id");
 const unitNameField = document.getElementById("unit-name");
@@ -11,8 +7,12 @@ const unitSubmitBtn = document.getElementById("unit-submit-btn");
 const unitCancelBtn = document.getElementById("unit-cancel-btn");
 const unitListEl = document.getElementById("unit-list");
 const emptyStateEl = document.getElementById("empty-state");
+const unitSortSelect = document.getElementById("unit-sort");
+
+const PRIORITY_RANK = { high: 0, medium: 1, low: 2 };
 
 document.addEventListener("DOMContentLoaded", renderUnits);
+unitSortSelect.addEventListener("change", renderUnits);
 
 unitForm.addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -37,6 +37,7 @@ unitForm.addEventListener("submit", async (event) => {
 
   resetForm();
   await renderUnits();
+  if (window.refreshDashboard) await window.refreshDashboard();
 });
 
 unitCancelBtn.addEventListener("click", resetForm);
@@ -55,7 +56,7 @@ async function renderUnits() {
   const request = store.getAll();
 
   request.onsuccess = () => {
-    const units = request.result;
+    let units = request.result;
     unitListEl.innerHTML = "";
 
     if (units.length === 0) {
@@ -63,10 +64,24 @@ async function renderUnits() {
       return;
     }
 
+    units = sortUnits(units, unitSortSelect.value);
+
     units.forEach((unit) => {
       unitListEl.appendChild(createUnitCard(unit));
     });
   };
+}
+
+function sortUnits(units, sortBy) {
+  const sorted = [...units];
+
+  if (sortBy === "examDate") {
+    sorted.sort((a, b) => new Date(a.examDate) - new Date(b.examDate));
+  } else if (sortBy === "priority") {
+    sorted.sort((a, b) => PRIORITY_RANK[a.priority] - PRIORITY_RANK[b.priority]);
+  }
+
+  return sorted;
 }
 
 function createUnitCard(unit) {
@@ -111,4 +126,5 @@ async function confirmDeleteUnit(unitId) {
 
   await deleteUnitCascade(unitId);
   await renderUnits();
+  if (window.refreshDashboard) await window.refreshDashboard();
 }
