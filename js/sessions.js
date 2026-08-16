@@ -1,7 +1,3 @@
-// sessions.js
-// Handles Session CRUD (#7), summary field (#9), file upload validation
-// and Blob storage (#10), and attachment rendering (#11).
-
 const sessionSubtopicSelect = document.getElementById("session-subtopic-select");
 const sessionForm = document.getElementById("session-form");
 const sessionIdField = document.getElementById("session-id");
@@ -112,6 +108,7 @@ sessionForm.addEventListener("submit", async (event) => {
 
   resetSessionForm(subtopicId);
   await renderSessions(subtopicId);
+  if (window.refreshDashboard) await window.refreshDashboard();
 });
 
 sessionCancelBtn.addEventListener("click", () => {
@@ -221,4 +218,5 @@ async function confirmDeleteSession(session) {
 
   await deleteRecord("sessions", session.id);
   await renderSessions(session.subtopicId);
+  if (window.refreshDashboard) await window.refreshDashboard();
 }

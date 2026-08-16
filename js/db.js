@@ -1,7 +1,3 @@
-// db.js
-// IndexedDB wrapper — promise-based CRUD primitives + cascade delete helpers.
-// See SCHEMA.md for the full schema documentation.
-
 function openDB() {
   return new Promise((resolve, reject) => {
     const request = indexedDB.open("StudyTrackerDB", 1);
@@ -45,7 +41,7 @@ async function addRecord(storeName, record) {
 
   return new Promise((resolve, reject) => {
     request.onsuccess = (event) => {
-      resolve(event.target.result); // newly generated id
+      resolve(event.target.result);
     };
     request.onerror = (event) => {
       reject(event.target.error);
@@ -120,10 +116,6 @@ async function getAllByIndex(storeName, indexName, value) {
     };
   });
 }
-
-// ---- Cascade delete helpers ----
-// Note: composed from the primitives above (sequential small transactions)
-// rather than one spanning transaction, for simplicity. See SCHEMA.md.
 
 async function deleteSubtopicCascade(subtopicId) {
   const sessions = await getAllByIndex("sessions", "subtopicId", subtopicId);
